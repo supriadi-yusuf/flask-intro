@@ -1,4 +1,8 @@
-from flask import Flask
+"""============================================
+flask : https://flask.palletsprojects.com/en/1.1.x/
+jinja : https://jinja.palletsprojects.com/en/2.10.x/
+============================================"""
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -17,6 +21,10 @@ def show_profile(user_name):
 @app.route("/halaman/<int:nomor_halaman>") # dynamic routing with integer type parameter
 def show_halaman(nomor_halaman):
   return "Anda berada di halaman %d" % nomor_halaman
+
+@app.route('/template/contoh1')
+def show_contoh1():
+    return render_template("index.html")
 
 
 # run application
