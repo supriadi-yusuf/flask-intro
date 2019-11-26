@@ -8,6 +8,10 @@ app = Flask(__name__)
 
 @app.route("/") # home url
 def index():
+  search = request.args.get("search")
+  if search : # example : localhost/search=topi
+      return "hasil search adalah " + search
+
   return "Hello word. This is my first application."
 
 @app.route("/setting") # static routing
@@ -36,6 +40,9 @@ def show_login():
         return 'user name is %s' % request.form['username']
 
     return render_template("login.html")
+
+
+
 
 
 
