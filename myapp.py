@@ -26,6 +26,11 @@ def show_halaman(nomor_halaman):
 def show_contoh1():
     return render_template("index.html")
 
+@app.route('/template/contoh2/<user_name>')
+def show_contoh2(user_name):
+    return render_template("index2.html", username=user_name)
+
+
 
 # run application
 # export FLASK_APP=hello-world.py
