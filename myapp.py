@@ -2,7 +2,7 @@
 flask : https://flask.palletsprojects.com/en/1.1.x/
 jinja : https://jinja.palletsprojects.com/en/2.10.x/
 ============================================"""
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -29,6 +29,13 @@ def show_contoh1():
 @app.route('/template/contoh2/<user_name>')
 def show_contoh2(user_name):
     return render_template("index2.html", username=user_name)
+
+@app.route('/login', methods=['GET','POST'])
+def show_login():
+    if request.method == 'POST':
+        return 'user name is %s' % request.form['username']
+
+    return render_template("login.html")
 
 
 
