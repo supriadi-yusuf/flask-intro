@@ -70,7 +70,7 @@ app.secret_key = 'apa aja' # we need secret key to work with session
 
 @app.route('/session/create')
 def create_session():
-    session['nama'] = 'supriadi'
+    session['nama'] = 'supriadi' # session is dictionary
     return 'session nama telah dibuat'
 
 @app.route('/session/get')
@@ -79,6 +79,11 @@ def get_session():
         return 'session nama adalah %s' % session['nama']
 
     return 'session nama belum dibuat'
+
+@app.route('/session/delete')
+def delete_session():
+    session.pop('nama')
+    return 'session nama dihapus'
 
 
 
