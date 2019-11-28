@@ -51,6 +51,10 @@ def get_paramater2():
     search = request.args.get("search")
     return render_template("logic.html", search = search )
 
+@app.route('/link')
+def link():
+    return render_template("link.html")
+
 
 
 

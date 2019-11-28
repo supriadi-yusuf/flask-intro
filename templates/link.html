@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>url_for function</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}"/>
+  </head>
+  <body>
+
+    <a href="{{ url_for('show_login') }}">login</a> <!-- function name as parameter -->
+    <br>
+    <a href="{{ url_for('show_profile', user_name='admin') }}">admin</a> <!-- function name as parameter -->
+
+
+
+  </body>
+</html>
