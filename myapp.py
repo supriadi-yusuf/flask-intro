@@ -2,7 +2,7 @@
 flask : https://flask.palletsprojects.com/en/1.1.x/
 jinja : https://jinja.palletsprojects.com/en/2.10.x/
 ============================================"""
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, session
 
 app = Flask(__name__)
 
@@ -65,6 +65,20 @@ def set_cookie():
 def get_cookie():
     nama = request.cookies.get('nama')
     return "cookie nama adalah %s" % nama
+
+app.secret_key = 'apa aja' # we need secret key to work with session
+
+@app.route('/session/create')
+def create_session():
+    session['nama'] = 'supriadi'
+    return 'session nama telah dibuat'
+
+@app.route('/session/get')
+def get_session():
+    if 'nama' in session :
+        return 'session nama adalah %s' % session['nama']
+
+    return 'session nama belum dibuat'
 
 
 
