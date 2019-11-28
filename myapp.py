@@ -2,7 +2,7 @@
 flask : https://flask.palletsprojects.com/en/1.1.x/
 jinja : https://jinja.palletsprojects.com/en/2.10.x/
 ============================================"""
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 
 app = Flask(__name__)
 
@@ -55,6 +55,16 @@ def get_paramater2():
 def link():
     return render_template("link.html")
 
+@app.route('/cookie/set')
+def set_cookie():
+    response = make_response("Cookie diset nama=supriadi")
+    response.set_cookie("nama", "supriadi")
+    return response
+
+@app.route('/cookie/get')
+def get_cookie():
+    nama = request.cookies.get('nama')
+    return "cookie nama adalah %s" % nama
 
 
 
