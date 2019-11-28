@@ -9,7 +9,7 @@ app = Flask(__name__)
 @app.route("/") # home url
 def index():
   search = request.args.get("search")
-  if search : # example : localhost/search=topi
+  if search : # example : localhost?search=topi
       return "hasil search adalah " + search
 
   return "Hello word. This is my first application."
@@ -37,7 +37,8 @@ def show_contoh2(user_name):
 @app.route('/login', methods=['GET','POST'])
 def show_login():
     if request.method == 'POST':
-        return 'user name is %s' % request.form['username']
+        # return 'user name is %s' % request.form['username']
+        return 'user name is %s' % request.form.get('username')
 
     return render_template("login.html")
 
