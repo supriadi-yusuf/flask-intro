@@ -34,17 +34,24 @@ def show_contoh2(user_name):
 def show_login():
     if request.method == 'POST':
         # return 'user name is %s' % request.form['username']
-        return 'user name is %s' % request.form.get('username')
+        return 'user name adalah %s' % request.form.get('username')
 
     return render_template("login.html")
 
 @app.route('/get')
 def get_paramater():
     search = request.args.get("search")
-    if search : # example : localhost?search=topi
+    if search : # example : localhost/get?search=topi
       return "value dari parameter search adalah " + search
 
     return "Tidak ada parameter search"
+
+@app.route('/get2')
+def get_paramater2():
+    search = request.args.get("search")
+    return render_template("logic.html", search = search )
+
+
 
 
 
