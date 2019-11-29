@@ -2,7 +2,8 @@
 flask : https://flask.palletsprojects.com/en/1.1.x/
 jinja : https://jinja.palletsprojects.com/en/2.10.x/
 ============================================"""
-from flask import Flask, render_template, request, make_response, session
+from flask import ( Flask, render_template, request, make_response, session,
+                   redirect, url_for)
 
 app = Flask(__name__)
 
@@ -82,16 +83,16 @@ def get_session():
 
 @app.route('/session/delete')
 def delete_session():
-    session.pop('nama')
+    session.pop('nama', None)
     return 'session nama dihapus'
 
+@app.route('/redirect')
+def redirect_to():
+    return redirect( url_for( 'show_login' ) )
 
-
-
-
-
-
-
+@app.route('/redirect2')
+def redirect_to_():
+    return redirect( url_for( 'show_profile', user_name='supriadi' ) )
 
 # run application
 # export FLASK_APP=hello-world.py
