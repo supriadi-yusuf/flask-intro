@@ -3,7 +3,7 @@ flask : https://flask.palletsprojects.com/en/1.1.x/
 jinja : https://jinja.palletsprojects.com/en/2.10.x/
 ============================================"""
 from flask import ( Flask, render_template, request, make_response, session,
-                   redirect, url_for)
+                   redirect, url_for, flash)
 
 app = Flask(__name__)
 
@@ -94,9 +94,15 @@ def redirect_to():
 def redirect_to_():
     return redirect( url_for( 'show_profile', user_name='supriadi' ) )
 
+@app.route('/flash_demo')
+def flash_demo():
+    flash('Ini adalah pesan flash', 'info') # flash(msg, type). type : info, warning, success, etc
+    return render_template('flash_demo.html')
+
+
 # run application
 # export FLASK_APP=hello-world.py
 # flask run or python -m flask run
 #
 # activate DEBUG mode
-# FLASK_APP=hello-world.y FLASK_DEBUG=1 python -m flask run
+# FLASK_APP=hello-world.y FLASK_DEBUG=1 python -m flask run 
