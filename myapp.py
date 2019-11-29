@@ -3,7 +3,7 @@ flask : https://flask.palletsprojects.com/en/1.1.x/
 jinja : https://jinja.palletsprojects.com/en/2.10.x/
 ============================================"""
 from flask import ( Flask, render_template, request, make_response, session,
-                   redirect, url_for, flash)
+                   redirect, url_for, flash, abort)
 
 app = Flask(__name__)
 
@@ -99,10 +99,23 @@ def flash_demo():
     flash('Ini adalah pesan flash', 'info') # flash(msg, type). type : info, warning, success, etc
     return render_template('flash_demo.html')
 
+@app.route('/error/401')
+def show_error_401():
+    abort(401)
+
+@app.errorhandler(403)
+def forbidden_access(e):
+    return render_template('403.html'), 403
+    
+@app.route('/error/403')
+def show_error_403():
+    abort(403)
+
+
 
 # run application
 # export FLASK_APP=hello-world.py
 # flask run or python -m flask run
 #
 # activate DEBUG mode
-# FLASK_APP=hello-world.y FLASK_DEBUG=1 python -m flask run 
+# FLASK_APP=hello-world.y FLASK_DEBUG=1 python -m flask run
