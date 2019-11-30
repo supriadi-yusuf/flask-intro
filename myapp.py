@@ -5,6 +5,9 @@ jinja : https://jinja.palletsprojects.com/en/2.10.x/
 from flask import ( Flask, render_template, request, make_response, session,
                    redirect, url_for, flash, abort)
 
+from werkzeug.utils import secure_filename
+import os
+
 app = Flask(__name__)
 
 @app.route("/") # home url
@@ -106,10 +109,35 @@ def show_error_401():
 @app.errorhandler(403)
 def forbidden_access(e):
     return render_template('403.html'), 403
-    
+
 @app.route('/error/403')
 def show_error_403():
     abort(403)
+
+# upload gambar
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+app.config['UPLOAD_FOLDER'] = 'uploads'
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        mypicture = request.files.get('mypicture')
+        if mypicture is None :
+            return redirect( request.url)
+
+        if mypicture.filename == '':
+            return redirect(request.url)
+
+        if allowed_file( mypicture.filename):
+            filename = secure_filename( mypicture.filename)
+            mypicture.save(os.path.join( app.config['UPLOAD_FOLDER'], filename))
+            return "file %s berhasil disimpan di %s" % ( filename,
+                       os.path.join( os.getcwd(), app.config['UPLOAD_FOLDER']) )
+
+    return render_template('upload.html')
 
 
 
